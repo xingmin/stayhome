@@ -14,16 +14,16 @@ function push(){
     for i in {1..10} 
     do  
         echo "Trying push my data to remote repo: $i time(s)"
-	#git --git-dir="$lrgd" add "$lr"
-	git add .
-	git commit -a -m "test"
-        git pull origin master
-        git push origin master
-	if [ $? -ne 0 ]; then
-	    sleep 5
-	    continue
-	fi
-	break
+		#git --git-dir="$lrgd" add "$lr"
+		git add .
+		git commit -a -m "test"
+	        git pull origin master
+	        git push origin master
+		if [ $? -ne 0 ]; then
+		    sleep 5
+		    continue
+		fi
+		break
     done
 }
 function usage(){
@@ -67,20 +67,19 @@ if ! [ -d "$drepo" ]; then
     mkdir -p "$drepo"
 fi
 
-pushd .
-cd "$drepo"
+pushd . > /dev/null 2>&1
+cd "$drepo" > /dev/null 2>&1
+
 
 case $mode in
     "pull")
-        echo "pulling data from remote repo."
         pull $srepo $drepo > /dev/null 2>&1
         ;;
     "push")
-        echo "pushing data to remote repo."
         push $drepo > /dev/null 2>&1
 esac
 
-popd
+popd > /dev/null 2>&1
     
 
 
